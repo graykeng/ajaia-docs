@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ajaia-docs",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ajaia-docs",
+      // Local dev ignores this id. Replace it with the id printed by
+      // `npx wrangler d1 create ajaia-docs` before deploying.
+      "database_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ]
+}

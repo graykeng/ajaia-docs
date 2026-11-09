@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local SQLite database
+/.open-next/
+/.wrangler/
+.dev.vars
+!.env.example
