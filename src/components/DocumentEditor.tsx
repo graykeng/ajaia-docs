@@ -83,8 +83,9 @@ export function DocumentEditor({ user, initial, initialAccess, ownerName }: Prop
     editable: canEdit(initialAccess),
     immediatelyRender: false, // required for server-side rendering
     editorProps: { attributes: { class: "doc-content", "aria-label": "Document content" } },
-    onUpdate: () => {
-      if (applyingRemoteRef.current) return;
+    onUpdate: ({ transaction }) => {
+      // Only real content changes count as edits (not focus, selection or mode changes).
+      if (applyingRemoteRef.current || !transaction.docChanged) return;
       dirtyRef.current = true;
       if (pausedRef.current) return;
       setStatus("dirty");
@@ -183,7 +184,7 @@ export function DocumentEditor({ user, initial, initialAccess, ownerName }: Prop
 
   // Keep the editor's read-only state in step with the user's current role.
   useEffect(() => {
-    editor?.setEditable(editable);
+    editor?.setEditable(editable, false); // false: switching modes is not an edit
   }, [editor, editable]);
 
   // Heartbeat: presence, role changes, renames and remote edits.
@@ -270,21 +271,17 @@ export function DocumentEditor({ user, initial, initialAccess, ownerName }: Prop
     try {
       await api(docUrl, { method: "PATCH", json: { title: next } });
       savedTitleRef.current = next;
-      document.title = `${next} – Ajaia Docs`;
     } catch (e) {
       setTitle(savedTitleRef.current);
       setErrorMessage(`Couldn't rename: ${(e as Error).message}`);
     }
   }
 
-  useEffect(() => {
-    document.title = `${savedTitleRef.current} – Ajaia Docs`;
-  }, []);
-
   const openComments = comments.filter((c) => !c.resolved).length;
 
   return (
     <div className="editor-shell">
+      <title>{`${title.trim() || "Untitled document"} – Ajaia Docs`}</title>
       <header className="editor-header no-print">
         <div className="editor-header-row">
           <Link href="/" className="brand-mark" title="Back to documents" aria-label="Back to documents">

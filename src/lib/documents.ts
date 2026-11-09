@@ -490,7 +490,12 @@ export function htmlToMarkdown(title: string, html: string): string {
   const turndown = new TurndownService({ headingStyle: "atx", bulletListMarker: "-", codeBlockStyle: "fenced" });
   turndown.keep(["u"]); // Markdown has no underline; keep it as inline HTML.
   turndown.addRule("strike", { filter: ["s"], replacement: (text) => `~~${text}~~` });
-  const body = turndown.turndown(html || "<p></p>").trim();
+  // The editor wraps list item text in <p>; unwrap it so lists export tight ("- item").
+  const tidy = (html || "<p></p>").replace(/<li>\s*<p>([\s\S]*?)<\/p>\s*<\/li>/g, "<li>$1</li>");
+  const body = turndown
+    .turndown(tidy)
+    .replace(/^(\s*)([-*]|\d+\.) {2,}/gm, "$1$2 ")
+    .trim();
   return /^#\s/.test(body) ? `${body}\n` : `# ${title}\n\n${body}\n`;
 }
 

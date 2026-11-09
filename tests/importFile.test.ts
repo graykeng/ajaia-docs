@@ -63,6 +63,11 @@ describe("htmlToMarkdown", () => {
     expect(md).toContain("# Doc");
     expect(md).toContain("## Goals");
     expect(md).toContain("**Ship** _fast_");
-    expect(md).toMatch(/-\s+a\n-\s+b/);
+    expect(md).toContain("- a\n- b");
+  });
+
+  it("exports editor-style lists (paragraphs inside items) as tight lists", () => {
+    const md = htmlToMarkdown("Doc", "<h1>Doc</h1><ol><li><p>one</p></li><li><p>two</p></li></ol>");
+    expect(md).toBe("# Doc\n\n1. one\n2. two\n");
   });
 });
