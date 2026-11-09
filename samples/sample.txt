@@ -1,0 +1,6 @@
+Meeting notes
+
+Attendees: Alice, Bob, Carol
+Agenda: roadmap review
+
+Plain text files import as paragraphs. Blank lines separate them.
