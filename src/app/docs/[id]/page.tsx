@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getDocument } from "@/lib/documents";
@@ -7,6 +8,17 @@ import { AppHeader } from "@/components/AppHeader";
 import { DocumentEditor } from "@/components/DocumentEditor";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const user = await getCurrentUser();
+  if (!user) return {};
+  try {
+    const { doc } = await getDocument(user, (await params).id);
+    return { title: `${doc.title} – Ajaia Docs` };
+  } catch {
+    return {}; // no access or not found: fall back to the default title
+  }
+}
 
 export default async function DocumentPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();

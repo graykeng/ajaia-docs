@@ -10,9 +10,8 @@
     {
       "binding": "DB",
       "database_name": "ajaia-docs",
-      // Local dev ignores this id. Replace it with the id printed by
-      // `npx wrangler d1 create ajaia-docs` before deploying.
-      "database_id": "00000000-0000-0000-0000-000000000000"
+      // Printed by `npx wrangler d1 create ajaia-docs`. Local dev ignores it.
+      "database_id": "aab91da1-ea51-4577-b2b3-024d3affebc2"
     }
   ]
 }

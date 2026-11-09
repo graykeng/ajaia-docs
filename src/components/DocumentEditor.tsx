@@ -277,11 +277,15 @@ export function DocumentEditor({ user, initial, initialAccess, ownerName }: Prop
     }
   }
 
+  // Keep the browser tab title in step with the document title (including live renames).
+  useEffect(() => {
+    document.title = `${title.trim() || "Untitled document"} – Ajaia Docs`;
+  }, [title]);
+
   const openComments = comments.filter((c) => !c.resolved).length;
 
   return (
     <div className="editor-shell">
-      <title>{`${title.trim() || "Untitled document"} – Ajaia Docs`}</title>
       <header className="editor-header no-print">
         <div className="editor-header-row">
           <Link href="/" className="brand-mark" title="Back to documents" aria-label="Back to documents">

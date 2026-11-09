@@ -27,6 +27,7 @@ I set the direction and constraints; Claude did the implementation inside them.
 - **A real bug found by using the app, not by tests.** Opening a document triggered a save even when nothing was typed, because the editor library reports "became editable" as an update. This bumped the version on every open and could show a false conflict banner. It was only visible in the browser; the fix was to count only transactions that change the document as edits.
 - **A wrong "Retry" behaviour.** The first version of the retry button forced the save, which would have overwritten another person's changes after a conflict. It now retries normally so a conflict still surfaces as a conflict.
 - **A bad test.** One test meant to check an anonymous upload was signing in as Alice because of a default argument. It failed, was diagnosed as a test mistake, and rewritten. That fix was briefly committed while still failing because of a shell command chain error; it was corrected in the next commit rather than hidden.
+- **A broken build caught at deploy time.** A helper script added alongside the sample files was picked up by the app's type check and failed the first deploy. I had not re-run the build after adding it. It is now excluded from the app's TypeScript project.
 - **Lint rule exceptions, stated not silenced.** Three places fetch data when a component mounts, which a new React lint rule flags. Each exception has an inline comment explaining why it is safe.
 - **Export quality.** The first Markdown export produced loose, oddly spaced lists from editor content. It was fixed and a test added.
 - **Features rejected outright:** websocket/CRDT co-editing, real authentication, text-anchored comments, and server-side PDF generation. Reasons are in [ARCHITECTURE.md](ARCHITECTURE.md).
@@ -37,6 +38,7 @@ I set the direction and constraints; Claude did the implementation inside them.
 - **In the browser, on the dev server:** the full flow as Alice, then as Carol with viewer access. Confirmed that formatting survives reload, that an unknown email in the share dialog gives a clear error, that a viewer sees no toolbar and cannot type, and that the API rejects a viewer's write with 403 even when called directly.
 - **On the Cloudflare Workers runtime (local):** sign-in, import of `.txt`, `.md` and `.docx`, save with sanitization, Markdown export, sharing, role enforcement, presence and version history. This mattered because several libraries (Word import, HTML sanitizing) were not guaranteed to run outside Node.
 - **Bundle size** checked with a deploy dry run: 1.7 MB compressed, within Cloudflare's free-plan limit.
+- **On the live deployment:** sign-in, rejection of a forged session cookie, `.docx` and `.md` import, save and reopen, sharing with a second user (403 before, read-only after), presence and Markdown export, plus loading the editor in a browser. Test documents were deleted afterwards so reviewers start from the seeded state.
 
 ## What was not verified
 
