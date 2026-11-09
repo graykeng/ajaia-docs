@@ -16,7 +16,7 @@ The optional stretch items (presence, comments, version history, export, roles) 
 | App framework | Next.js 16 (App Router), TypeScript | UI and API in one deployable unit |
 | Editor | TipTap 3 (ProseMirror) | Reliable rich-text behaviour and keyboard shortcuts without building an editor |
 | Database | Cloudflare D1 (SQLite) | Free, no separate service, same SQL locally and in production |
-| Hosting | Cloudflare Workers via OpenNext | Free, deploys with one command, supports a custom domain |
+| Hosting | Cloudflare Workers via OpenNext | Free, deploys with one command |
 | Validation | Zod | One schema per request body, consistent error messages |
 | Tests | Vitest | Fast; runs route handlers directly with no server |
 

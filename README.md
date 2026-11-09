@@ -84,12 +84,6 @@ npx wrangler secret put SESSION_SECRET   # any long random string; signs the ses
 
 The schema and seed data are created automatically on the first request.
 
-**Custom domain.** A Worker can only be attached to a domain whose DNS is managed by Cloudflare. For a domain registered at Route 53, add the domain to Cloudflare (free plan) and change its nameservers in Route 53 to the ones Cloudflare gives you; the registration itself stays at Route 53. Then add this to `wrangler.jsonc` and deploy again:
-
-```jsonc
-"routes": [{ "pattern": "docs.example.com", "custom_domain": true }]
-```
-
 ## Project layout
 
 ```
