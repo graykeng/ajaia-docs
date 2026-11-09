@@ -3,7 +3,7 @@
 A lightweight collaborative document editor: create and format documents in the browser, import files, share them with other users at different permission levels, comment, and roll back to earlier versions.
 
 - **Live app:** https://ajaia-docs.graykeng7.workers.dev
-- **Walkthrough video:** see [video-url.txt](video-url.txt)
+- **Walkthrough video:** https://youtu.be/oCmoDNcl12U
 - **Architecture note:** [ARCHITECTURE.md](ARCHITECTURE.md)
 - **AI workflow note:** [AI_WORKFLOW.md](AI_WORKFLOW.md)
 

@@ -5,7 +5,7 @@
 | Item | Location |
 | --- | --- |
 | Live app | https://ajaia-docs.graykeng7.workers.dev |
-| Walkthrough video | [video-url.txt](video-url.txt) – _TBD_ |
+| Walkthrough video | https://youtu.be/oCmoDNcl12U (also in [video-url.txt](video-url.txt)) |
 | Source repository | https://github.com/graykeng/ajaia-docs (the same source is in this folder) |
 
 ## Test accounts
