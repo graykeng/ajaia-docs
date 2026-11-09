@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- test assertions read untyped JSON responses */
 import { createSessionToken, SESSION_COOKIE } from "@/lib/auth";
 
 type Handler<P> = (req: Request, ctx: { params: Promise<P> }) => Promise<Response>;

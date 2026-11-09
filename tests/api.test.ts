@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- test assertions read untyped JSON responses */
 import { beforeEach, describe, expect, it } from "vitest";
 import * as session from "@/app/api/session/route";
 import * as documents from "@/app/api/documents/route";
