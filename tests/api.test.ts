@@ -171,7 +171,9 @@ describe("file import", () => {
   it("rejects unsupported files and missing uploads", async () => {
     expect((await upload("malware.exe", "MZ")).status).toBe(400);
     expect((await call(importRoute.POST, { as: ALICE, form: new FormData() })).status).toBe(400);
-    expect((await upload("a.txt", "hello", undefined as unknown as string)).status).toBe(401);
+    const anonymous = new FormData();
+    anonymous.set("file", new File(["hello"], "a.txt"));
+    expect((await call(importRoute.POST, { form: anonymous })).status).toBe(401);
   });
 });
 
